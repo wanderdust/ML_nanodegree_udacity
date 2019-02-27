@@ -28,18 +28,8 @@ The mean absolute error is calculated by finding the distance from our point (x,
 
 ![](./images/mean_absolute_error.png)
 
-### **Regularization**
 
-Useful technique to improve our models and make sure they don't overfit.
-
- Regularization helps us decide what to choose between a complex model (polinomial regression) and a simple model (linear regression). The way it does that is by adding the complexity of the function into the error. The complexity is calculated by the sum of the weights (w_0 + ... + w_n). After adding the complexity to the error, we choose the one with the smallest overall error.
-* **L1 Regularization**: complexity is calculated by adding the absolute values of the weights.
-* **L2 Regularization**: complexity is calculated by adding the squared values of the weights.
-* **λ (Lambda)**: a parameter we can use to punish complexity. We want a complex model when we expect very little error, and a simpler one when there is room for experimentation and it is okay to make some mistakes. To get the error, we multiply the complexity error by lambda. A higer lambda means we will punish complexity more, and a lower lambda means we will punish simplicity more.
-
-
-
-### **Mean Squared Error**
+#### **Mean Squared Error**
 
 The mean squared error is the average of the squared distances from the points (x, y) to the line with the same x coordinate (x, y_hat).
 
@@ -52,7 +42,14 @@ The mean squared error is more useful in some cases. For example in the graph be
 ![](./images/mean_squared_error_example.png)
 
 
+### **Regularization**
 
+Useful technique to improve our models and make sure they don't overfit.
+
+ Regularization helps us decide what to choose between a complex model (polinomial regression) and a simple model (linear regression). The way it does that is by adding the complexity of the function into the error. The complexity is calculated by the sum of the weights (w_0 + ... + w_n). After adding the complexity to the error, we choose the one with the smallest overall error.
+* **L1 Regularization**: complexity is calculated by adding the absolute values of the weights.
+* **L2 Regularization**: complexity is calculated by adding the squared values of the weights.
+* **λ (Lambda)**: a parameter we can use to punish complexity. We want a complex model when we expect very little error, and a simpler one when there is room for experimentation and it is okay to make some mistakes. To get the error, we multiply the complexity error by lambda. A higer lambda means we will punish complexity more, and a lower lambda means we will punish simplicity more.
 
 
 
