@@ -57,3 +57,7 @@ Useful technique to improve our models and make sure they don't overfit.
 ### **Extra notes**
 
 ![](./images/calculating_gradient_descent.png)
+
+
+ ### **Resources**
+ Udacity: [Machine Learning Nanodegree](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009t)

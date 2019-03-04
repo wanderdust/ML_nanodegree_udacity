@@ -99,3 +99,7 @@ This is useful because it not only recicles some of the validation data, but als
 **Underfitting**: our model is too simple for the dataset. The training error will start low for fewer training points, however it will increase as more training points are added because the model is too simple and can't possibly classify some of the points. The cross validation error will decrease as more training points are added, however it will never get a low error since the model is too simple to properly classify some of the points. For this model, adding more data points won't help.
 
 **Overfitting**: our model is too complex for the dataset. The training error will start low, and stay low, as more training points are added the model will memorize the data more and more. For the cross validation error it will start to decrease however it will never reach a low error. This is because the model is too complex and therefore is memorizing the data, which will cause that the model will misclasify data points that has neven seen before.
+
+
+ ## **Resources**
+ Udacity: [Machine Learning Nanodegree](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009t)
