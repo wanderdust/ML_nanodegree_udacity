@@ -38,14 +38,30 @@ This parameter is a constant that multiplies the classification error.
 
 The basic idea behind Kernel Methods to deal with data that is not linearly separable, is to create non-linear combinations of the original features to project them into a higher-dimensional space via a mapping function where it becomes linearly separable.
 
-* Example = (x_1, x_2) → (x_1, x_2, x<sup>2</sup>_1 + x<sup>2</sup>_2)
+* Example = (x<sub>1</sub>, x<sub>2</sub>) → (x<sub>1</sub>, x<sub>2</sub>, x<sup>2</sup><sub>1</sub> + x<sup>2</sup><sub>2</sub>)
 
 By using this trick we can use a higher dimension to separate our data, and the project it back to the previous dimension.
 
 ![SVM kernel trick](./images/svm_poly_kernel.png)
 
+In the image above we can see the original distribution in two dimensions. Then we add a third dimension as the combination of the original features, in this example *z = x<sup>2</sup><sub>1</sub> + x<sup>2</sup><sub>2</sub>* so that our points look like this: *(x<sub>1</sub>, x<sub>2</sub>, x<sup>2</sup><sub>1</sub> + x<sup>2</sup><sub>2</sub>)*. Now that we can separate data with this new dimension, we find a plane that best separates the data by applying the algorithm we've defined previously. Once we have the hyperplane that best divides the data, we reduce back to the 2nd dimension, so our function looks like the last image.
 
 
+### **RBF Kernel**
+
+The RBF Kernel is the most common method to separate our points adding an extra dimension. This method consists on drawing the gaussian paraboloid for each point, having what looks like "mountains". Then we need to find the plane with the right weights that will cut these "mountains" in a way where the blue points get separated from the red points.
+
+![RBF Kernel](./images/rbf_kernel.png)
+
+In the image above we can imagine that the blue points are at the top of the plane, and the red dots under the plane. Then we move back to the previous dimension, and in this case our boundries would look like circles where the plane cuts the "mountains".
+
+#### **Gamma parameter γ**
+
+The gamma parameter is used to decide how wide we want these "mountains" to be. 
+
+![Gamma parameter](./images/gamma_parameter_rbf.png)
+
+In the image we can see a large gamma will plot very pointy "mountains" and a small gamma wider "mountains". The image shows what the boundaries look like after the projection has been done. A large gamma, tends to overfit, and a low one tends to underfit.
 
 
 
