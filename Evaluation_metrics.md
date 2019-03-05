@@ -60,6 +60,10 @@ For some models it might be more important to have a higher precision (spam iden
 
 * F<sub>ß </sub> Score = *(1 + ß<sup>2</sup>) * (Precision * Recall) / (ß<sup>2</sup> * Precision + Recall)* 
 
+If β = 0, then we get precision.
+
+If β = ∞, then we get recall.
+
 
 
 ### **ROC Curve**
