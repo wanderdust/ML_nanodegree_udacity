@@ -15,7 +15,7 @@ Boosting consists of very simple classifiers (weak learners) which have a slight
 
 In constrast to the original boosting, AdaBoost uses the complete trainin set to train the weak learners where the trainnig samples are reweighted on each iteration to build a strong classifier that learns from the mistakes of the previous weak learner in the ensemble.
 
-![Ada boosting example](./images/adaboosting_chart.png)
+![Ada boosting example](/images/adaboosting_chart.png)
 
 The process goes as follows:
 1) We fit our first weak learner in order to maximize accuracy, equivalently, to minimize our number of errors. In this case we can't do less than two errors.
@@ -29,7 +29,7 @@ In a more mathematical way the process can be described as follows.
 3) Then we want to fit our newly weighted data with a new model. In this case the model will try to classify correctly the points with bigger weights. We apply the same procedure of adding the weights... and repeat this iteration for as many times as we want.
 4) a) Finally we want to combine the models to make a prediction. However we want to weight them first by how well they are doing. A model that always tells the truth will have a large weight, as well as a model that is always worng, since all we need to do is to do the opposite as what the model says (large negative weight). A model that gives a good prediction 50% of the time will have a weight close to 0, since it is very unpredictable. Therefore an accuracy of 0.5 should result in a small weight (because it gives unpredictable results) an an accuracy close to 0 (always wrong) or close to one (always right) should get a bigger weight. The formula is as follows: 
 
-![adaboost weight formula](./images/adaboost_weight_formula.png)
+![adaboost weight formula](/images/adaboost_weight_formula.png)
 
 4) b) Now it is time to actually combine the models. For our three models the weights will be:
     * 1) ln(0.82/0.18) = 1.52

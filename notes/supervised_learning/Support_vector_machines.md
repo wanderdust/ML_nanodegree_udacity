@@ -8,7 +8,7 @@ We want to maximize the margin as much as possible. To do this we add a margin, 
 
 In a nutshell, our error will consist of the classification error plus the margin error. Once we have this, we apply gradient descent to minimize the error.
 
-![SVM margin](./images/svm_margin_chart.png)
+![SVM margin](/images/svm_margin_chart.png)
 
 #### **Classification Error**
 First we need to calcualte the classification error. This is going to be the same as when we classify our points in our perceptron algorithm with **Wx + b = 0**, except this time we'll make the boundary for the blue points the top line **Wx + b = 1**, and the boundary for the red points **Wx + b = -1**. We calculate the error with the respective boundary and add it for all the misclasified points (in the perceptron algorithm we ignore the properly classified points).
@@ -22,13 +22,13 @@ The error is the norm of W squared (which is adding the squared values of the we
 
 In the other hand if we want to know the margin Error, it can be calculated by dividing 2 by the norm of W, and the norm of W is the root square of the error.
 
-![Margin Error](./images/margin_error.png)
+![Margin Error](/images/margin_error.png)
 
 #### **The C Parameter**
 
 This parameter is a constant that multiplies the classification error. 
 
-![C constant](./images/c_constant_svm.png)
+![C constant](/images/c_constant_svm.png)
 
 * For a large C, we focus more on properly classifying all the points, allowing a smaller margin.
 * For a small C, we focus more on having a large margin, allowing more misclassified points.
@@ -42,7 +42,7 @@ The basic idea behind Kernel Methods to deal with data that is not linearly sepa
 
 By using this trick we can use a higher dimension to separate our data, and the project it back to the previous dimension.
 
-![SVM kernel trick](./images/svm_poly_kernel.png)
+![SVM kernel trick](/images/svm_poly_kernel.png)
 
 In the image above we can see the original distribution in two dimensions. Then we add a third dimension as the combination of the original features, in this example *z = x<sup>2</sup><sub>1</sub> + x<sup>2</sup><sub>2</sub>* so that our points look like this: *(x<sub>1</sub>, x<sub>2</sub>, x<sup>2</sup><sub>1</sub> + x<sup>2</sup><sub>2</sub>)*. Now that we can separate data with this new dimension, we find a plane that best separates the data by applying the algorithm we've defined previously. Once we have the hyperplane that best divides the data, we reduce back to the 2nd dimension, so our function looks like the last image.
 
@@ -51,7 +51,7 @@ In the image above we can see the original distribution in two dimensions. Then 
 
 The RBF Kernel is the most common method to separate our points adding an extra dimension. This method consists on drawing the gaussian paraboloid for each point, having what looks like "mountains". Then we need to find the plane with the right weights that will cut these "mountains" in a way where the blue points get separated from the red points.
 
-![RBF Kernel](./images/rbf_kernel.png)
+![RBF Kernel](/images/rbf_kernel.png)
 
 In the image above we can imagine that the blue points are at the top of the plane, and the red dots under the plane. Then we move back to the previous dimension, and in this case our boundries would look like circles where the plane cuts the "mountains".
 
@@ -59,7 +59,7 @@ In the image above we can imagine that the blue points are at the top of the pla
 
 The gamma parameter is used to decide how wide we want these "mountains" to be. 
 
-![Gamma parameter](./images/gamma_parameter_rbf.png)
+![Gamma parameter](/images/gamma_parameter_rbf.png)
 
 In the image we can see a large gamma will plot very pointy "mountains" and a small gamma wider "mountains". The image shows what the boundaries look like after the projection has been done. A large gamma, tends to overfit, and a low one tends to underfit.
 

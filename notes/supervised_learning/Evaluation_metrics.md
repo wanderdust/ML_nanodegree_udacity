@@ -68,7 +68,7 @@ If β = ∞, then we get recall.
 
 ### **ROC Curve**
 
-![Roc Curves](./images/roc_curves.png)
+![Roc Curves](/images/roc_curves.png)
 
 Identifies how well the data can be splitted in a binary classification. The curve is plotted by calculating two ratios:
 * True Positive Rate = *TP/All Positives*
@@ -98,7 +98,7 @@ This is useful because it not only recicles some of the validation data, but als
 
 ### **Learning Curves**
 
-![Learning Curves](./images/learning_curves.png)
+![Learning Curves](/images/learning_curves.png)
 
 **Underfitting**: our model is too simple for the dataset. The training error will start low for fewer training points, however it will increase as more training points are added because the model is too simple and can't possibly classify some of the points. The cross validation error will decrease as more training points are added, however it will never get a low error since the model is too simple to properly classify some of the points. For this model, adding more data points won't help.
 
