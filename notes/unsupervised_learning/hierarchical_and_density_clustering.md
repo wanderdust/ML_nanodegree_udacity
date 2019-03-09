@@ -4,7 +4,7 @@
 
  Hierarchical clustering or Agglomerative Clustering consists on finding the nearest clusters and merging them together. We keep doing this until we end up with a single cluster that we can then decide to break into as many clusters as we want.
 
- ### **Single link clustering**
+ ## **Single link clustering**
 
  Single link cluster makes clusters by grouping the closest points from each cluster. The process is as follows:
 
@@ -32,17 +32,17 @@
 
 
 
-  ### **Complete link clustering**
+  ## **Complete link clustering**
 
 Same as single link clustering, except that the distance between 2 clusters is the distance from the furthest points of the cluster. This type of approach generates compact clusters.
 
 A problem with this approach is that it only takes into consideration the furthest points, which is not always the most helpful thing.
 
-### **Average link clustering**
+## **Average link clustering**
 
 The distance is calculated by the average of all the points from a cluster to the average of all the points to the other clusters.
 
-### **Ward's Method**
+## **Ward's Method**
 
 This method attempts to minimize variance when merging 2 clusters.
 
@@ -79,7 +79,7 @@ We do this for all the clusters, and the ones that have the smallest error funct
 
 Density based scan creates clusters in areas where there is a minimun number of points within a radius. If these conditions are not met, the point will be considered as noise. This method works really well with noisy data.
 
-### **DBSCAN**
+## **DBSCAN**
 
 We choose a point and look around it given a max radius. If this point has a minimum of *n* points within the radius (epsilon) it will be considered as a the core point of the clusters. The points around it will be considered border points. If it doesn't meet the requirements, they get considered noise.
 
@@ -110,7 +110,5 @@ Comparison of DBSCAN vs K-means
 
  ## **Resources**
  Udacity: [Machine Learning Nanodegree](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009t)
-
- Naftali Harris [www.naftaliharris.com](https://www.naftaliharris.com/blog/visualizing-k-means-clustering/)
 
 
