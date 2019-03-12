@@ -4,6 +4,8 @@
 
  Hierarchical clustering or Agglomerative Clustering consists on finding the nearest clusters and merging them together. We keep doing this until we end up with a single cluster that we can then decide to break into as many clusters as we want.
 
+ One of the advantages of Hierarchical Clustering is that it can be plotted using a dendogram. The other advantage is that we do not need to specify the number of clusters we want beforehand.
+
  ## **Single link clustering**
 
  Single link cluster makes clusters by grouping the closest points from each cluster. The process is as follows:
@@ -96,9 +98,9 @@ Comparison of DBSCAN vs K-means
 ## **Pros and Cons of DBSCAN**
 
 **Advantages**
-* No need to specify the number of clusters
-* Flexibility in shape and sizes
-* Able to deal with noise
+* No need to specify the number of clusters.
+* Flexibility in shape and sizes. It doesn't assume that the clusters have spherical shape.
+* Able to deal with noise.
 
 **Disadvantages**
 * Border points that are reachable from two clusters are given to the one that sees it first.

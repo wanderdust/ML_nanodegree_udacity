@@ -1,6 +1,11 @@
 # **k-Means**
 
-K-means clustering is an unsupervised learning technique to group data into clusters. The way it works is the following:
+K-means clustering is an unsupervised learning technique to group data into clusters. K-means is very efficient compared to other clustering methods, which makes it very popular. It belongs to the category of **prototype-based clustering**.
+
+While k-means is very good at identifying clusters with spherical shape, one of the drawbacks is that we have to specify the number of clusters a priori.
+
+
+The way it works is the following:
 1. First we decide how many clusters we want, so that we can randomly plot as many centroids as clusters we want.
 
 ![Random centroids](/images/k_means_ex_1.png)
