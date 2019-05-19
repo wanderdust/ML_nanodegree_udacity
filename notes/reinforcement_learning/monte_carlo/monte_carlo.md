@@ -1,6 +1,8 @@
 # **Monte Carlo Methods**
 
-Unlike dynamic programming, Monte Carlo methods uses an average of state-values (or state-action-values) from different episodes to build its value function and policy.
+Unlike dynamic programming, Monte Carlo methods uses an average of state-values (or state-action-values) from different episodes to build its value function and policy. MC methods don't know the one step dynamics before hand.
+
+In the black jack example, the agent can decide to hit or stick based on experience, given a state, but she doesn't know what the next state or reward will be.
 
 ![optimal policy for black jack game](/images/rl_black_jack_policy.png)
 
