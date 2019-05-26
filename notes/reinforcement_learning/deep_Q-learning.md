@@ -54,8 +54,49 @@ Consists on saving the state, reward, done tuples in a replay buffer and re-use 
 
 **Experience replay** can help by recalling some unusual states as well as preventing the agent to learn from unwanted sequences by shuffling the batches.
 
-*Experience replay saves the experiences in a replay buffer, and then trains the network (state fucntion) at once.*
+*Experience replay saves the experiences in a [finite] replay buffer, and then trains the network (state fucntion) at once.*
 
 **Fixed Target**: Currently the update function updates the weights using its own value of the weights, which is mathematically incorrect, but seems to work. A better way to implement this algorithm would be to fix the value of **_w<sup>-<sup>_** which we don't change during the learning step. In practice we copy _w_ into _w<sup>-<sup>_, use it to generate targets while changing _w_ for a certain number of learning steps. Then we update the value of _w<sup>-<sup>_ to the value of  _w_, learn for a number of steps and so on.
 
 This helps decouple the parameters.
+
+**THE DEEP Q-LEARNING ALGORITHM**
+
+This algorithm has 2 steps:
+* The first step samples the environment by performing actions and storing away the experienced tuples in a replay memory
+* The other step is where we select a small batch of tuples from the memory randomly and use the gradient descent step to learn.
+
+These 2 processes are not directly dependent on each other, so you could sample for a number of times and then do one learning step, or even multiple learning steps with different random batches.
+
+![Q-learning algorithm](/images/rl_q-learning_algorithm.png)
+
+**Improvements**:
+1. **Double Q-Learning**: The problem comes from choosing the state value with the max value at the early stages, because these can be noisy values. Double Q-Learning chooses the best action with some set of parameters _w_ but then evaluates that action with a set of parameters _w'_.
+
+![Double Q-Learning](/images/q_learning_improvement_1.png)
+
+2. **Prioritized Experience Replay**: The problem comes from having a limited replay buffer, where some important memories (eg. rare memories that don't occur often) might get lost. Prioritized experience replay uses _delta_ error function to assign priorities to each tuple: the bigger the error the more we expect to learn from that tuple. We store this error alongide each tuple in the replay buffer.
+
+![prioritized experience replay](/images/q_learning_per.png)
+
+3. **Dueling Networks** : The idea is to use 2 streams: one that estimates the state values, and the other to estimate the advantage values. Finally the desired Q values are obtained from combining both.
+
+![Dueling Networks](/images/q_learning_dueling_networks.png)
+
+## **Useful Resources**
+
+[Human-level control through deep reinforcement
+learning](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)
+
+[Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](https://arxiv.org/abs/1502.01852)
+
+[Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461)
+
+[Prioritized Experience Replay](https://arxiv.org/abs/1511.05952)
+
+[Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581)
+
+[Deep Recurrent Q-Learning for Partially Observable MDPs](https://arxiv.org/abs/1507.06527)
+
+[Issues in Using Function Approximation for Reinforcement Learning (1993)](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.73.3097)
+

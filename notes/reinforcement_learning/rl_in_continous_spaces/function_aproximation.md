@@ -49,3 +49,4 @@ We can acomplish this by multiplying the input vector by a matrix of weights, ea
 * We can only represent linear relations between inputs and ouptuts, which is often  not the case, getting a real bad aproximation result.
 
 * We can use Deep Neural Networks to catch these non-linear relationships.
+
