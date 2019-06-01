@@ -82,7 +82,7 @@ These 2 processes are not directly dependent on each other, so you could sample 
 3. **Dueling Networks** : The idea is to use 2 streams: one that estimates the state values, and the other to estimate the advantage values. Finally the desired Q values are obtained from combining both.
 
 ![Dueling Networks](/images/q_learning_dueling_networks.png)
-
+*******
 ## **Useful Resources**
 
 [Human-level control through deep reinforcement
@@ -100,3 +100,8 @@ learning](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf)
 
 [Issues in Using Function Approximation for Reinforcement Learning (1993)](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.73.3097)
 
+**Deep learning implementations**
+
+[Implementing Deep Q-learning with keras](https://keon.io/deep-q-learning/)
+
+[Implementing Deep Q-learning with pytorch](https://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)
