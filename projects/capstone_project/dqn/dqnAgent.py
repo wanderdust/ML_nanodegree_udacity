@@ -13,7 +13,7 @@ class DQNAgent:
     self.epsilon_min = 0.001
     
     # Model
-    self.state_size = (80,80,2)
+    self.state_size = (80,80,4)
     self.action_size = 6
     self.model = Model(self.state_size, self.action_size, self.learning_rate).model
 

@@ -2,6 +2,7 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation, BatchNormalization, GlobalAveragePooling2D
 from keras.optimizers import Adam
 from PIL import Image
+import skimage
 import numpy as np
 
 
@@ -38,14 +39,17 @@ class Model:
     return model
 
   @staticmethod
-  def img_to_tensor(img):
-    # convert 3D tensor to 4D tensor with shape (1, n, n, M) and return 4D tensor
-    return np.expand_dims(img, axis=0)
-
-  @staticmethod
   def img_preprocessing(img):
-    img = Image.fromarray(img)
-    img = img.resize((80,80)).convert('LA')
+    x_t = Image.fromarray(img)
+    area = (0, 20, 160 , 196)
+    x_t = np.asarray(x_t.crop(area))
+    x_t = skimage.color.rgb2gray(x_t)
+    x_t = skimage.transform.resize(x_t,(80,80))
+    x_t = skimage.exposure.rescale_intensity(x_t, out_range=(0, 255))
+    x_t = x_t/255.
 
-    return Model.img_to_tensor(img)
+    s_t = np.stack((x_t, x_t, x_t, x_t), axis=2)
+    s_t = s_t.reshape(1, s_t.shape[0], s_t.shape[1], s_t.shape[2])
+
+    return s_t
 
