@@ -3,7 +3,7 @@ from dqn.model import Model
 import numpy as np
 
 class DQNAgent:
-  def __init__(self, env):
+  def __init__(self, k_frames):
 
     # Hyperparameters
     self.learning_rate = 0.01
@@ -13,7 +13,7 @@ class DQNAgent:
     self.epsilon_min = 0.001
     
     # Model
-    self.state_size = (80,80,4)
+    self.state_size = (80,80, k_frames)
     self.action_size = 6
     self.model = Model(self.state_size, self.action_size, self.learning_rate).model
 

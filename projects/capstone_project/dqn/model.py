@@ -18,15 +18,12 @@ class Model:
     model = Sequential()
     model.add(Conv2D(filters=32, kernel_size=(8,8), padding='same', activation='relu', 
                       strides=2, input_shape=self.state_size))
-    #model.add(MaxPooling2D(pool_size=2))
 
     model.add(Conv2D(filters=64, kernel_size=(4,4), padding='same', activation='relu',
                       strides=2))
-    #model.add(MaxPooling2D(pool_size=2))
 
     model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', activation='relu',
                       strides=2))
-    #model.add(MaxPooling2D(pool_size=2))
 
     model.add(Flatten())
     model.add(Dense(512, activation='relu'))
@@ -48,8 +45,25 @@ class Model:
     x_t = skimage.exposure.rescale_intensity(x_t, out_range=(0, 255))
     x_t = x_t/255.
 
-    s_t = np.stack((x_t, x_t, x_t, x_t), axis=2) # stack 4 images
+    return x_t
+
+  @staticmethod
+  def frames_preprocessing(frames):
+    """
+    * Convert 'frames' to numpy array
+    * Preprocessing a stack of frames
+    * Stacking them into tensor
+    * Return tensor
+    """
+    frames = np.asarray(frames._frames)
+
+    frames_preproc = [Model.img_preprocessing(frame) for frame in frames]
+
+    s_t = np.stack(frames_preproc, axis=2)
+
     s_t = s_t.reshape(1, s_t.shape[0], s_t.shape[1], s_t.shape[2])
 
     return s_t
+
+
 

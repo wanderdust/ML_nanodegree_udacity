@@ -1,6 +1,11 @@
 import gym
 from collections import deque
 from gym import spaces
+import numpy as np
+
+"""
+  Classes taken from https://github.com/openai/baselines
+"""
 
 class FrameStack(gym.Wrapper):
     def __init__(self, env, k):
@@ -31,6 +36,8 @@ class FrameStack(gym.Wrapper):
         assert len(self.frames) == self.k
         return LazyFrames(list(self.frames))
     
+
+
 class LazyFrames(object):
     def __init__(self, frames):
         """This object ensures that common frames between the observations are only stored once.
