@@ -40,11 +40,11 @@ class Train:
               self.rewards.append(total_reward)
               break
         
-      self.env.close()
+      if render: self.env.close()
       
       if learn:
         # train the agent with the experience of the episode
-        self.agent.learn(32)
+        self.agent.learn()
 
   def plot_rewards(self):
     if len(self.rewards) == 0:

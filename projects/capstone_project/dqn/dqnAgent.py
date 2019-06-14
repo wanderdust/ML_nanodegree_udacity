@@ -24,7 +24,7 @@ class DQNAgent:
 
     # Replay memory
     self.buffer_size = 100000
-    self.batch_size = 64
+    self.batch_size = 128
     self.memory = ReplayBuffer(self.buffer_size, self.batch_size)
 
   def act(self, state):
@@ -60,14 +60,14 @@ class DQNAgent:
     else:
       self.c_steps_counter += 1
 
-  def learn(self, batch_size=32):
+  def learn(self):
     """
     1. Obtain a batch of random samples
     2. Set target y = r + gamma*max q(s,a,w-)
     3. Update weights (forward pass -> Gradient descent)
     4. Update fixed w after C steps w- <- w
     """
-    minibatch = self.memory.sample(batch_size)
+    minibatch = self.memory.sample(self.batch_size)
     
     for state, action, reward, next_state, done in minibatch:
       target = reward
