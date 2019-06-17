@@ -13,7 +13,7 @@ class DQNAgent:
     self.epsilon_min = 0.001
     
     # Model
-    self.state_size = (80,80, k_frames)
+    self.state_size = (84,84, k_frames)
     self.action_size = 6
     self.model = Model(self.state_size, self.action_size, self.learning_rate).model
 
@@ -24,7 +24,7 @@ class DQNAgent:
 
     # Replay memory
     self.buffer_size = 100000
-    self.batch_size = 128
+    self.batch_size = 64
     self.memory = ReplayBuffer(self.buffer_size, self.batch_size)
 
   def act(self, state):
@@ -38,17 +38,6 @@ class DQNAgent:
     # select greedy action
     act_values = self.model.predict(state)
     return np.argmax(act_values[0])
-
-
-  def sample(self, state):
-    """
-    1. Choose action A from state S 
-    2. Take action A, observe reward R and next S
-    3. Prepare next state S'
-    4. Store experience tuple (S,A,R,S') in replay memory
-    5. S <- S'
-    """
-    pass
 
   def update_model_f(self):
     """

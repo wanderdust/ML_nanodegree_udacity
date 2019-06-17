@@ -1,3 +1,4 @@
+import numpy as np
 from dqn.dqnAgent import DQNAgent
 from dqn.model import Model
 import matplotlib.pyplot as plt
@@ -18,8 +19,8 @@ class Train:
     for e in progress_bar:
       # reset state at the beggining of each game
       state = self.env.reset()    
-      state = Model.frames_preprocessing(state)
-      
+      state = Model.state_to_tensor(state)
+
       total_reward = 0
 
       while(True):
@@ -27,7 +28,7 @@ class Train:
           
           action = self.agent.act(state)
           next_state, reward, done, info = self.env.step(action)
-          next_state = Model.frames_preprocessing(next_state)
+          next_state = Model.state_to_tensor(next_state)
           
           self.agent.memory.add(state, action, reward, next_state, done)
           

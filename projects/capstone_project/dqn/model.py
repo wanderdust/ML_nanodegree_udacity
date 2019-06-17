@@ -1,8 +1,6 @@
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation, BatchNormalization, GlobalAveragePooling2D
 from keras.optimizers import Adam
-from PIL import Image
-import skimage
 import numpy as np
 
 
@@ -36,34 +34,14 @@ class Model:
     return model
 
   @staticmethod
-  def img_preprocessing(img):
-    x_t = Image.fromarray(img)
-    area = (0, 20, 160 , 196)
-    x_t = np.asarray(x_t.crop(area)) # crop image
-    x_t = skimage.color.rgb2gray(x_t) # srayscale
-    x_t = skimage.transform.resize(x_t,(80,80)) # scale
-    x_t = skimage.exposure.rescale_intensity(x_t, out_range=(0, 255))
-    x_t = x_t/255.
-
-    return x_t
-
-  @staticmethod
-  def frames_preprocessing(frames):
+  def state_to_tensor(state):
     """
-    * Convert 'frames' to numpy array
-    * Preprocessing a stack of frames
-    * Stacking them into tensor
-    * Return tensor
+    Convert state to tensor
     """
-    frames = np.asarray(frames._frames)
+    state = np.asarray(state)
+    state = state.reshape(1, state.shape[0], state.shape[1], state.shape[2])
 
-    frames_preproc = [Model.img_preprocessing(frame) for frame in frames]
-
-    s_t = np.stack(frames_preproc, axis=2)
-
-    s_t = s_t.reshape(1, s_t.shape[0], s_t.shape[1], s_t.shape[2])
-
-    return s_t
+    return state
 
 
 
