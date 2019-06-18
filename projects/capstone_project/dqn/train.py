@@ -46,7 +46,7 @@ class Train:
         self.agent.learn()
 
       # Save model weights evey n episodes
-      if e % 10 == 0:
+      if learn and e % 1000 == 0:
         self.agent.save_weights('best_model')
         progress_bar.set_description("Saving the model")
 
