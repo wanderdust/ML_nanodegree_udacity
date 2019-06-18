@@ -26,7 +26,7 @@ class Model:
     model.add(Flatten())
     model.add(Dense(512, activation='relu'))
     model.add(Dropout(0.4))
-    model.add(Dense(self.action_size, activation='softmax'))
+    model.add(Dense(self.action_size, activation='linear'))
 
     # compile the model
     model.compile(optimizer=Adam(lr=self.learning_rate), loss='mse')

@@ -64,12 +64,10 @@ class DQNAgent:
       if not done:
         target = reward + self.gamma * np.amax(self.model_f.predict(next_state)[0])
 
-      # Convert target to have the same shape as output
+      # make the agent to approximately map
+      # the current state to future discounted reward
       target_f = self.model.predict(state)
       target_f[0][action] = target
-
-      print("state", state)
-      print("target_f", target_f)
 
       self.model.fit(state, target_f, epochs=1, verbose=0)
       self.update_model_f()
