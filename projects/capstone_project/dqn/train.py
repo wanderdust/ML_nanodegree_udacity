@@ -45,6 +45,11 @@ class Train:
         # train the agent with the experience of the episode
         self.agent.learn()
 
+      # Save model weights evey n episodes
+      if e % 10 == 0:
+        self.agent.save_weights('best_model')
+        progress_bar.set_description("Saving the model")
+
   def plot_rewards(self):
     if len(self.rewards) == 0:
       print("Please run the 'train' function to add some rewards")
@@ -55,3 +60,4 @@ class Train:
     plt.xlabel('Episode')
     plt.ylabel('Reward')
     plt.show()
+    

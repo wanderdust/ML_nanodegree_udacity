@@ -20,7 +20,7 @@ class DQNAgent:
 
     # Model with fixed weights w-
     self.model_f = Model(self.state_size, self.action_size, self.learning_rate).model
-    self.c_steps = 5 # how often w- gets updated
+    self.c_steps = 15 # how often w- gets updated
     self.c_steps_counter = 0
 
     # Replay memory
@@ -74,3 +74,10 @@ class DQNAgent:
 
     if self.epsilon > self.epsilon_min:
       self.epsilon *= self.epsilon_decay  
+
+  def save_weights(self, filename="best_model"):
+    self.model.save_weights('saved_models/'+ filename + '.h5')
+
+  def load_weights(self, filename):
+    self.model.load_weights('saved_models/'+ filename + '.h5')
+    self.model_f.load_weights('saved_models/'+ filename + '.h5')
