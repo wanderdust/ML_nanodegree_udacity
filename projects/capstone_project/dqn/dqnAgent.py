@@ -3,7 +3,7 @@ from dqn.model import Model
 import numpy as np
 
 class DQNAgent:
-  def __init__(self, k_frames):
+  def __init__(self):
 
     # Hyperparameters
     self.learning_rate = 0.01
@@ -13,13 +13,14 @@ class DQNAgent:
     self.epsilon_min = 0.001
     
     # Model
-    self.state_size = (84,84, k_frames)
+    self.k_frames = 4
+    self.state_size = (84,84, self.k_frames)
     self.action_size = 6
     self.model = Model(self.state_size, self.action_size, self.learning_rate).model
 
     # Model with fixed weights w-
     self.model_f = Model(self.state_size, self.action_size, self.learning_rate).model
-    self.c_steps = 10 # how often w- gets updated
+    self.c_steps = 5 # how often w- gets updated
     self.c_steps_counter = 0
 
     # Replay memory
@@ -67,11 +68,11 @@ class DQNAgent:
       target_f = self.model.predict(state)
       target_f[0][action] = target
 
+      print("state", state)
+      print("target_f", target_f)
+
       self.model.fit(state, target_f, epochs=1, verbose=0)
       self.update_model_f()
 
     if self.epsilon > self.epsilon_min:
-      self.epsilon *= self.epsilon_decay
-
-
-  
+      self.epsilon *= self.epsilon_decay  

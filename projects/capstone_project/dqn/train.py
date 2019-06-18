@@ -1,20 +1,18 @@
 import numpy as np
-from dqn.dqnAgent import DQNAgent
 from dqn.model import Model
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 
 class Train:
-  def __init__(self, env, episodes, k_frames = 4):
+  def __init__(self, env, agent):
 
-    self.agent = DQNAgent(k_frames)
-    self.episodes = episodes
+    self.agent = agent
     self.env = env
     self.rewards = []
 
-  def train(self, learn=True, render=False):
-    progress_bar = tqdm(range(self.episodes))
+  def train(self, episodes, learn=True, render=False):
+    progress_bar = tqdm(range(episodes))
 
     for e in progress_bar:
       # reset state at the beggining of each game
@@ -37,7 +35,7 @@ class Train:
           total_reward += reward
           
           if done:
-              progress_bar.set_description("episode: {}, score: {}".format(e + 1, total_reward))
+              progress_bar.set_description("score: {}".format(total_reward))
               self.rewards.append(total_reward)
               break
         
