@@ -17,6 +17,6 @@ if __name__ == "__main__":
 
     train = Train(env, agent_train)
     # Train the agent
-    train.train(episodes_train, learn=True, render=False)
+    train.train(episodes_train, learn=True, render=False, monitor=True)
     # Plot the rewards
     train.plot_rewards()

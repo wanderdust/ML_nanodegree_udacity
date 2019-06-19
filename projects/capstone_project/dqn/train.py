@@ -2,7 +2,8 @@ import numpy as np
 from dqn.model import Model
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-
+from gym.wrappers import Monitor
+from time import time
 
 class Train:
   def __init__(self, env, agent):
@@ -11,7 +12,13 @@ class Train:
     self.env = env
     self.rewards = []
 
-  def train(self, episodes, learn=True, render=False):
+  def train(self, episodes, learn=True, render=False, monitor=False):
+
+    # Record video
+    # Records only the first episode
+    if monitor:
+      self.env = Monitor(self.env, './videos/' + time() + '/', resume=True)
+
     progress_bar = tqdm(range(episodes))
 
     for e in progress_bar:
@@ -39,7 +46,7 @@ class Train:
               self.rewards.append(total_reward)
               break
         
-      if render: self.env.close()
+      if render or monitor: self.env.close()
       
       if learn:
         # train the agent with the experience of the episode
