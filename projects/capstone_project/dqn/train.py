@@ -17,7 +17,7 @@ class Train:
     # Record video
     # Records only the first episode
     if monitor:
-      self.env = Monitor(self.env, './videos/' + time() + '/', resume=True)
+      self.env = Monitor(self.env, './videos/' + str(time()) + '/', resume=True)
 
     progress_bar = tqdm(range(episodes))
 
@@ -62,16 +62,27 @@ class Train:
         self.agent.save_weights('best_model')
         progress_bar.set_description("Saving the model")
 
-  def plot_rewards(self):
+  def plot_rewards(self, mean_avg=10):
+    avg_rewards = []
+
     if len(self.rewards) == 0:
       print("Please run the 'train' function to add some rewards")
       return
 
+    # Calculate the mean over the last n-rewards
+    for i in range(1, len(self.rewards) + 1):
+      if i % mean_avg == 0:
+        avg = np.mean(self.rewards[i - mean_avg :i])
+        avg_rewards.append(avg)
+
     avg_score = np.mean(self.rewards)
     print("Average score: {}".format(avg_score))
-    plt.plot(self.rewards)
-    plt.title("Total Reward over all episodes")
+
+    x_axis = np.arange(mean_avg, len(self.rewards)+mean_avg, mean_avg)
+    plt.plot(x_axis, avg_rewards)
+    plt.title("Mean average every {} episodes".format(mean_avg))
     plt.xlabel('Episode')
+
     plt.ylabel('Reward')
     plt.show()
     
