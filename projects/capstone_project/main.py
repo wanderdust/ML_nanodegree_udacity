@@ -12,9 +12,11 @@ if __name__ == "__main__":
     env = MaxAndSkipEnv(env)
     env = wrap_deepmind(env, episode_life=False, clip_rewards=True, frame_stack=True, scale=False)
 
-    episodes_train = 700
+    episodes_train = 2000
     agent_train = DQNAgent()
 
     train = Train(env, agent_train)
     # Train the agent
     train.train(episodes_train, learn=True, render=False)
+    # Plot the rewards
+    train.plot_rewards()

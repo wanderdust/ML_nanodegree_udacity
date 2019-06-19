@@ -35,7 +35,7 @@ class Train:
           total_reward += reward
           
           if done:
-              progress_bar.set_description("score: {}".format(total_reward))
+              progress_bar.set_description(" score: {}".format(total_reward))
               self.rewards.append(total_reward)
               break
         
@@ -50,11 +50,18 @@ class Train:
         self.agent.save_weights('best_model')
         progress_bar.set_description("Saving the model")
 
+      # Save the model on the last episode as well.
+      if e == episodes:
+        self.agent.save_weights('best_model')
+        progress_bar.set_description("Saving the model")
+
   def plot_rewards(self):
     if len(self.rewards) == 0:
       print("Please run the 'train' function to add some rewards")
       return
 
+    avg_score = np.mean(self.rewards)
+    print("Average score: {}".format(avg_score))
     plt.plot(self.rewards)
     plt.title("Total Reward over all episodes")
     plt.xlabel('Episode')

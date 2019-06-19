@@ -6,11 +6,11 @@ class DQNAgent:
   def __init__(self):
 
     # Hyperparameters
-    self.learning_rate = 0.01
-    self.gamma = 0.95 # discount rate
+    self.learning_rate = 0.00025
+    self.gamma = 0.99 # discount rate
     self.epsilon = 1 # exploration
     self.epsilon_decay = 0.995
-    self.epsilon_min = 0.001
+    self.epsilon_min = 0.1
     
     # Model
     self.k_frames = 4
@@ -20,7 +20,7 @@ class DQNAgent:
 
     # Model with fixed weights w-
     self.model_f = Model(self.state_size, self.action_size, self.learning_rate).model
-    self.c_steps = 15 # how often w- gets updated
+    self.c_steps = 1000 # how often w- gets updated
     self.c_steps_counter = 0
 
     # Replay memory
