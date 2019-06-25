@@ -12,8 +12,15 @@ class Train:
     self.env = env
     self.rewards = []
 
-  def train(self, episodes, learn=True, render=False, monitor=False):
-
+  def train(self, episodes, learn=True, render=False, monitor=False, save_episodes=100):
+    '''
+    params
+    ========
+      learn: whether the agent performs gradient descent or not
+      render: render a video of the agent performing
+      monitor: record a video
+      save_episodes: save the model's weight every n episodes
+    '''
     # Record video
     # Records only the first episode
     if monitor:
@@ -53,7 +60,7 @@ class Train:
         self.agent.learn()
 
       # Save model weights evey n episodes
-      if learn and e % 1000 == 0:
+      if learn and e % save_episodes == 0:
         self.agent.save_weights('best_model')
         progress_bar.set_description("Saving the model")
 
