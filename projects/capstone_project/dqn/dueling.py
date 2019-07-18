@@ -1,36 +1,38 @@
-from dqn.model import Model
+from dqn.model import ModelVanilla
 from keras.models import Sequential, Model
-from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation, BatchNormalization, GlobalAveragePooling2D, merge
 from keras.optimizers import Adam
 from keras import backend as K
 import numpy as np
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout,\
+    Activation, BatchNormalization, GlobalAveragePooling2D, Lambda, Input
 
 
-class DuelingNet(Model):
+class DuelingNet(ModelVanilla):
     
     def build_model(self):
         model = Sequential()
-        conv_1 = Conv2D(filters=32, kernel_size=(8,8), padding='same', activation='relu', 
-                        strides=2, input_shape=self.state_size)
+        
+        input = Input((self.state_size))
 
-        conv_2 = Conv2D(filters=64, kernel_size=(4,4), padding='same', activation='relu',
-                        strides=2)(conv_1)
+        conv1 = Conv2D(filters=32, kernel_size=(8,8), padding='same', activation='relu', 
+                        strides=2)(input)
 
-        conv_3 = Conv2D(filters=64, kernel_size=(3,3), padding='same', activation='relu',
-                        strides=2)(conv_2)
+        conv2 = Conv2D(filters=64, kernel_size=(4,4), padding='same', activation='relu',
+                        strides=2)(conv1)
 
-        flatten = Flatten()(conv_3)
+        conv3 = Conv2D(filters=64, kernel_size=(3,3), padding='same', activation='relu',
+                        strides=2)(conv2)
 
-        # Dueling Layer 1
+        flatten = Flatten()(conv3)
+
         fc1 = Dense(512, activation='relu')(flatten)
-        advantage = Dense(self.action_size)(fc1)
-        # Dueling Layer 2
-        fc2 = Dense(512, activation='relu')(flatten)
-        value = Dense(self.action_size)(fc2)
+        
+        # Build the dueling net
+        x = Dense(self.action_size + 1, activation='linear')(fc1)
+        policy = Lambda(lambda i: K.expand_dims(i[:,0],-1) + i[:,1:] - K.mean(i[:,1:], keepdims=True),
+                        output_shape=(self.action_size,))(x)
 
-        # Merge both layers
-        policy = merge([advantage, value], mode=lambda x: x[0]-K.mean(x[0])+x[1], output_shape=(self.action_size,))
-        model = Model(input=[input_layer], output=[policy])
+        model = Model(input, policy)
 
         # compile the model
         model.compile(optimizer=Adam(lr=self.learning_rate), loss='mse')

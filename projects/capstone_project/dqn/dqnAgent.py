@@ -1,9 +1,10 @@
 from dqn.replayBuffer import ReplayBuffer
-from dqn.model import Model
+from dqn.model import ModelVanilla
+from dqn.dueling import DuelingNet
 import numpy as np
 
 class DQNAgent:
-  def __init__(self):
+  def __init__(self, dueling=False):
 
     # Hyperparameters
     self.learning_rate = 0.00025
@@ -12,14 +13,12 @@ class DQNAgent:
     self.epsilon_decay = 0.995
     self.epsilon_min = 0.1
     
-    # Model
+    # Model's parameters
     self.k_frames = 4
     self.state_size = (84,84, self.k_frames)
     self.action_size = 6
-    self.model = Model(self.state_size, self.action_size, self.learning_rate).model
 
-    # Model with fixed weights w-
-    self.model_f = Model(self.state_size, self.action_size, self.learning_rate).model
+    # Model with fixed weights w-'s parameters
     self.c_steps = 1000 # how often w- gets updated
     self.c_steps_counter = 0
 
@@ -27,6 +26,17 @@ class DQNAgent:
     self.buffer_size = 100000
     self.batch_size = 64
     self.memory = ReplayBuffer(self.buffer_size, self.batch_size)
+
+    # Check if we are going to be using dueling nets
+    if(dueling):
+      self.model = DuelingNet(self.state_size, self.action_size, self.learning_rate).model
+      # Model with fixed weights w-
+      self.model_f = DuelingNet(self.state_size, self.action_size, self.learning_rate).model
+    else:
+      self.model = ModelVanilla(self.state_size, self.action_size, self.learning_rate).model
+      # Model with fixed weights w-
+      self.model_f = ModelVanilla(self.state_size, self.action_size, self.learning_rate).model
+
 
   def act(self, state):
     """

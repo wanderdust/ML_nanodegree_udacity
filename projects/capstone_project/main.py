@@ -13,7 +13,7 @@ if __name__ == "__main__":
     env = wrap_deepmind(env, episode_life=False, clip_rewards=True, frame_stack=True, scale=False)
 
     episodes_train = 100
-    agent_train = DQNAgent()
+    agent_train = DQNAgent(dueling=True)
 
     train = Train(env, agent_train)
     # Train the agent

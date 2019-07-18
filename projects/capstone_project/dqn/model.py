@@ -4,7 +4,7 @@ from keras.optimizers import Adam
 import numpy as np
 
 
-class Model:
+class ModelVanilla:
   def __init__(self, state_size, action_size, learning_rate):
     self.state_size = state_size # size tuple
     self.action_size = action_size
@@ -14,6 +14,7 @@ class Model:
 
   def build_model(self):
     model = Sequential()
+    
     model.add(Conv2D(filters=32, kernel_size=(8,8), padding='same', activation='relu', 
                       strides=2, input_shape=self.state_size))
 

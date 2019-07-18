@@ -1,5 +1,5 @@
 import numpy as np
-from dqn.model import Model
+from dqn.model import ModelVanilla
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 from gym.wrappers import Monitor
@@ -31,7 +31,7 @@ class Train:
     for e in progress_bar:
       # reset state at the beggining of each game
       state = self.env.reset()    
-      state = Model.state_to_tensor(state)
+      state = ModelVanilla.state_to_tensor(state)
 
       total_reward = 0
 
@@ -40,7 +40,7 @@ class Train:
           
           action = self.agent.act(state)
           next_state, reward, done, info = self.env.step(action)
-          next_state = Model.state_to_tensor(next_state)
+          next_state = ModelVanilla.state_to_tensor(next_state)
           
           self.agent.memory.add(state, action, reward, next_state, done)
           
@@ -59,14 +59,9 @@ class Train:
         # train the agent with the experience of the episode
         self.agent.learn()
 
-      # Save model weights evey n episodes
-      if learn and e % save_episodes == 0:
-        self.agent.save_weights('best_model')
-        progress_bar.set_description("Saving the model")
-
-      # Save the model on the last episode as well.
-      if e == episodes:
-        self.agent.save_weights('best_model')
+      # Save model weights evey n episodes or on the last episode
+      if learn and e % save_episodes == 0 or e == episodes:
+        self.agent.save_weights('best_model_dueling')
         progress_bar.set_description("Saving the model")
 
   def plot_rewards(self, mean_avg=10):
