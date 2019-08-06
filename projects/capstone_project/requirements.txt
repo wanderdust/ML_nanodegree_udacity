@@ -1,0 +1,8 @@
+numpy
+matplotlib
+tqdm
+gym
+time
+tensorflow-gpu
+keras
+baselines
