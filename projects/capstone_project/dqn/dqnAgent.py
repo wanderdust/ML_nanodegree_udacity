@@ -4,7 +4,7 @@ from dqn.dueling import DuelingNet
 import numpy as np
 
 class DQNAgent:
-  def __init__(self, dueling=False):
+  def __init__(self, dueling=False, action_size=6):
 
     # Hyperparameters
     self.learning_rate = 0.00025
@@ -16,10 +16,10 @@ class DQNAgent:
     # Model's parameters
     self.k_frames = 4
     self.state_size = (84,84, self.k_frames)
-    self.action_size = 6
+    self.action_size = action_size
 
     # Model with fixed weights w-'s parameters
-    self.c_steps = 1000 # how often w- gets updated
+    self.c_steps = 10000 # how often w- gets updated
     self.c_steps_counter = 0
 
     # Replay memory

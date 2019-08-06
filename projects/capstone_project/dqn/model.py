@@ -1,6 +1,6 @@
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Activation, BatchNormalization, GlobalAveragePooling2D
-from keras.optimizers import Adam
+from keras.optimizers import RMSprop
 import numpy as np
 
 
@@ -15,22 +15,25 @@ class ModelVanilla:
   def build_model(self):
     model = Sequential()
     
-    model.add(Conv2D(filters=32, kernel_size=(8,8), padding='same', activation='relu', 
-                      strides=2, input_shape=self.state_size))
+    model.add(Conv2D(filters=32, kernel_size=8, padding='valid', activation='relu', 
+                      strides=(4,4), input_shape=self.state_size))
 
-    model.add(Conv2D(filters=64, kernel_size=(4,4), padding='same', activation='relu',
-                      strides=2))
+    model.add(Conv2D(filters=64, kernel_size=4, padding='valid', activation='relu',
+                      strides=(2,2)))
 
-    model.add(Conv2D(filters=64, kernel_size=(3,3), padding='same', activation='relu',
-                      strides=2))
+    model.add(Conv2D(filters=64, kernel_size=3, padding='same', activation='relu',
+                      strides=(1,1)))
 
     model.add(Flatten())
     model.add(Dense(512, activation='relu'))
-    model.add(Dropout(0.4))
-    model.add(Dense(self.action_size, activation='linear'))
+    model.add(Dense(self.action_size))
 
     # compile the model
-    model.compile(optimizer=Adam(lr=self.learning_rate), loss='mse')
+    model.compile(loss='mean_squared_error',
+                  optimizer=RMSprop(lr=self.learning_rate,
+                                    rho=0.95,
+                                    epsilon=0.01),
+                  metrics=['accuracy'])
 
     return model
 

@@ -11,6 +11,10 @@ class Train:
     self.agent = agent
     self.env = env
     self.rewards = []
+    self.rewards_filepath = 'saved_models/rewards.txt'
+
+    # Empty rewards file
+    open(self.rewards_filepath, 'w').close()
 
   def train(self, episodes, learn=True, render=False, monitor=False, save_episodes=100):
     '''
@@ -51,6 +55,8 @@ class Train:
           if done:
               progress_bar.set_description(" score: {}".format(total_reward))
               self.rewards.append(total_reward)
+              if learn:
+                self.save_reward(total_reward) # Write reward to file
               break
         
       if render or monitor: self.env.close()
@@ -61,7 +67,7 @@ class Train:
 
       # Save model weights evey n episodes or on the last episode
       if learn and e % save_episodes == 0 or e == episodes:
-        self.agent.save_weights('best_model_dueling')
+        self.agent.save_weights('vanilla')
         progress_bar.set_description("Saving the model")
 
   def plot_rewards(self, mean_avg=10):
@@ -87,4 +93,29 @@ class Train:
 
     plt.ylabel('Reward')
     plt.show()
+
+  # Save rewards to file
+  def save_reward(self, reward):
+    f = open(self.rewards_filepath, "a+")
+
+    f.write("{},".format(reward))
+
+    f.close()
+
+  # Read rewards from file
+  def load_rewards(self):
+    self.rewards = [] # Empty existing rewards
+
+    f = open(self.rewards_filepath, "r")
+
+    if f.mode == "r":
+      contents = f.read()
+
+    file_data = contents.split(",")[:-1] # Delete last item, as it is an empty element
+
+    for reward in file_data:
+      self.rewards.append(float(reward))
+
+
+
     
