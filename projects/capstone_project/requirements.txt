@@ -2,7 +2,5 @@ numpy
 matplotlib
 tqdm
 gym
-time
-tensorflow-gpu
+tensorflow-gpu==1.12.0
 keras
-baselines
