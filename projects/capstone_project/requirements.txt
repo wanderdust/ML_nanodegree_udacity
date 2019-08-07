@@ -1,6 +1,6 @@
 numpy
 matplotlib
 tqdm
-gym
+gym[atari]
 tensorflow-gpu==1.12.0
 keras
