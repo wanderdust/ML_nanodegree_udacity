@@ -91,3 +91,4 @@ class DQNAgent:
   def load_weights(self, filename):
     self.model.load_weights('saved_models/'+ filename + '.h5')
     self.model_f.load_weights('saved_models/'+ filename + '.h5')
+    print("Loaded {}.h5".format(filename))
