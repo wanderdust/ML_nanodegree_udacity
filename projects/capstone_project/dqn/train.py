@@ -1,9 +1,11 @@
+from time import time
+
+import matplotlib.pyplot as plt
 import numpy as np
 from dqn.model import ModelVanilla
-import matplotlib.pyplot as plt
-from tqdm import tqdm
 from gym.wrappers import Monitor
-from time import time
+from tqdm import tqdm
+
 
 class Train:
   def __init__(self, env, agent):
@@ -70,7 +72,7 @@ class Train:
         self.agent.save_weights('vanilla')
         progress_bar.set_description("Saving the model")
 
-  def plot_rewards(self, mean_avg=10):
+  def plot_rewards(self, mean_avg=10, show=False):
     avg_rewards = []
 
     if len(self.rewards) == 0:
@@ -92,7 +94,9 @@ class Train:
     plt.xlabel('Episode')
 
     plt.ylabel('Reward')
-    plt.show()
+    plt.savefig('ouptuts/rewards.png')
+    if show:
+      plt.show()
 
   # Save rewards to file
   def save_reward(self, reward):

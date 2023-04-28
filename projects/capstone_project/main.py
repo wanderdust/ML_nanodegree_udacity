@@ -1,9 +1,8 @@
 import gym
+from baselines.common.atari_wrappers import MaxAndSkipEnv, NoopResetEnv, wrap_deepmind
 from dqn.dqnAgent import DQNAgent
 from dqn.train import Train
 from gym.wrappers.atari_preprocessing import AtariPreprocessing
-from baselines.common.atari_wrappers import NoopResetEnv, MaxAndSkipEnv, wrap_deepmind
-
 
 if __name__ == "__main__":
 
